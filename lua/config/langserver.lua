@@ -74,4 +74,4 @@ vim.lsp.config('nixd', {
     },
 })
 
-vim.lsp.enable({ 'rust_analyzer', 'clangd', 'ruff', 'lua_ls', 'nixd' })
+vim.lsp.enable({ 'basedpyright', 'rust_analyzer', 'clangd', 'ruff', 'lua_ls', 'nixd' })

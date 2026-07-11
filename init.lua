@@ -50,7 +50,7 @@ end, { desc = 'Toggle Inlay Hints' })
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>fr', builtin.live_grep, { desc = 'Telescope ripgrep' })
-vim.keymap.set('n', '<leader>ft', builtin.treesitter, { desc = 'Telescope treesitter' })
+vim.keymap.set('n', '<leader>fm', builtin.man_pages, { desc = 'Telescope manpages' })
 vim.keymap.set('n', '<leader>fs', builtin.lsp_dynamic_workspace_symbols, { desc = 'Telescope symbols' })
 
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -69,18 +69,17 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end,
 })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = { "*.py", "*.lua", "*.h", "*.c" },
-    callback = function()
-        vim.lsp.buf.format({ async = false })
-    end,
-})
-
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "nix",
     callback = function()
         vim.opt_local.shiftwidth = 2
         vim.opt_local.tabstop = 2
         vim.opt_local.softtabstop = 2
+    end,
+})
+
+vim.api.nvim_create_autocmd('TextYankPost', {
+    callback = function()
+        vim.highlight.on_yank({ higroup = "Visual", timeout = 150 })
     end,
 })
