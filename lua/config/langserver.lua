@@ -4,7 +4,6 @@ vim.lsp.config('clangd', {
     cmd = {
         'clangd',
         '--clang-tidy',
-        '--compile-commands-dir=.',
     }, -- Use CLANGD_FLAGS in per directory environment to set query driver
 })
 
