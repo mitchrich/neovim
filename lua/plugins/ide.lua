@@ -1,11 +1,8 @@
 require('neogen').setup()
-require('mini.snippets').setup()
 
 require('blink.cmp').setup({
     keymap = { preset = 'default' },
-
     appearance = { nerd_font_variant = 'mono' },
-
     completion = {
         documentation = { auto_show = false },
         menu = {
@@ -36,7 +33,7 @@ require('blink.cmp').setup({
     },
 
     sources = {
-        default = { 'lsp', 'snippets' },
+        default = { 'lsp' },
         providers = {
             cmdline = {
                 -- ignores cmdline completions when executing shell commands
