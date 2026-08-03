@@ -5,9 +5,10 @@ require('blink.cmp').setup({
     appearance = { nerd_font_variant = 'mono' },
     completion = {
         documentation = { auto_show = false },
+        auto_brackets = { enabled = false },
         menu = {
             draw = {
-                columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind", gap = 1 } },
+                columns = { { "label", "label_description", gap = 1 }, { "kind_icon" } },
                 components = {
                     kind_icon = {
                         text = function(ctx)
@@ -21,7 +22,6 @@ require('blink.cmp').setup({
                         end,
                     },
                     kind = {
-                        -- (optional) use highlights from mini.icons
                         highlight = function(ctx)
                             local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
                             return hl
