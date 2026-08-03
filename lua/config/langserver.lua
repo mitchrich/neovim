@@ -56,8 +56,10 @@ vim.lsp.config('ruff', {
 vim.lsp.config('rust_analyzer', {
     settings = {
         ['rust-analyzer'] = {
-            check = {
-                command = "clippy"
+            check = { command = "clippy" },
+            cargo = { allFeatures = true },
+            diagnostics = {
+                disabled = { "inactive-code" },
             }
         }
     }
