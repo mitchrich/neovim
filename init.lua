@@ -70,6 +70,19 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+    pattern = {"markdown", "tex"},
+    callback = function()
+        vim.opt_local.wrap = true
+        vim.opt_local.linebreak = true
+        vim.opt_local.textwidth = 0
+
+        -- Up and down screen lines
+        vim.keymap.set('n', 'j', 'gj', { buffer = true, silent = true })
+        vim.keymap.set('n', 'k', 'gk', { buffer = true, silent = true })
+    end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
     pattern = "nix",
     callback = function()
         vim.opt_local.shiftwidth = 2
