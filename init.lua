@@ -24,6 +24,7 @@ vim.g.have_nerd_font = true
 vim.opt.scrolloff = 8
 vim.o.wrap = false
 vim.o.winborder = "rounded"
+vim.o.exrc = true;
 
 -- Misc settings
 MiniIcons.mock_nvim_web_devicons()
@@ -96,3 +97,4 @@ vim.api.nvim_create_autocmd('TextYankPost', {
         vim.highlight.on_yank({ higroup = "Visual", timeout = 150 })
     end,
 })
+
