@@ -11,15 +11,17 @@ require("plugins.edit")
 require("config.langserver")
 
 -- Editor settings
-vim.opt.signcolumn = "yes"
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
+
 vim.opt.number = true
 vim.opt.relativenumber = true
+
 vim.opt.undofile = true
+vim.opt.signcolumn = "yes"
 vim.g.have_nerd_font = true
 vim.opt.scrolloff = 8
 vim.o.wrap = false
@@ -89,6 +91,30 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.opt_local.shiftwidth = 2
         vim.opt_local.tabstop = 2
         vim.opt_local.softtabstop = 2
+    end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = {"c","cpp"},
+    callback = function()
+    vim.opt.softtabstop = 4
+	vim.opt.tabstop = 8
+	vim.opt.shiftwidth = 8
+	vim.opt.expandtab = false
+	vim.opt.smarttab = false
+
+	vim.opt.smartindent = false
+	vim.opt.cindent = true
+	--[[
+	-- No indent on case statements
+	-- Four space line continuation indent
+	-- Look 500 lines back for comment starts
+	]]
+	vim.opt.cinoptions = "p0,t0,+4,(0,u4,U1,:0,*500"
+
+	vim.opt.formatoptions = "croq"
+	vim.opt.textwidth = 80
+	vim.opt.colorcolumn = "80"
     end,
 })
 
