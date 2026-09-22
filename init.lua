@@ -69,7 +69,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(ev)
         local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
         if client.name == "clangd" then
-            vim.keymap.set('n', '<leader>h', ':LspClangdSwitchSourceHeader<CR>', { desc = 'Switch Header<->Source' })
+            vim.keymap.set('n', '<localleader>h', ':LspClangdSwitchSourceHeader<CR>', { desc = 'Switch Header<->Source', buf=0})
+        elseif client.name == "texlab" then
+            vim.keymap.set('n', '<localleader>v', ':LspTexlabForward<CR>', { desc = 'Forward Texsync', buf=0})
         end
     end,
 })

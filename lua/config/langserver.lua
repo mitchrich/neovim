@@ -7,6 +7,33 @@ vim.lsp.config('clangd', {
     }, -- Use CLANGD_FLAGS in per directory environment to set query driver
 })
 
+vim.lsp.config('texlab', {
+    settings = {
+        texlab = {
+            build = { 
+                onSave = true,
+                executable = 'tectonic',
+                args = {
+                    '-X',
+                    'compile',
+                    '%f',
+                    '--synctex',
+                    '--keep-logs',
+                    '--keep-intermediates'
+                },
+            },
+            forwardSearch = {
+                executable = 'okular',
+                args = {
+                    '--unique',
+                    '--noraise',
+                    'file:%p#src:%l%f'
+                },
+            }
+        }
+    }
+})
+
 vim.lsp.config('lua_ls', {
     on_init = function(client)
         if client.workspace_folders then
@@ -75,4 +102,4 @@ vim.lsp.config('nixd', {
     },
 })
 
-vim.lsp.enable({ 'basedpyright', 'rust_analyzer', 'clangd', 'ruff', 'lua_ls', 'nixd' })
+vim.lsp.enable({ 'basedpyright', 'rust_analyzer', 'texlab', 'clangd', 'ruff', 'lua_ls', 'nixd' })
