@@ -3,12 +3,6 @@ vim.g.maplocalleader = '\\'
 
 -- Create Hooks for Building Plugins
 require("plugins.hooks")
-require("plugins.add")
-require("plugins.ide")
-require("plugins.ui")
-require("plugins.edit")
-
-require("config.langserver")
 
 -- Editor settings
 vim.opt.tabstop = 4
@@ -22,11 +16,19 @@ vim.opt.relativenumber = true
 
 vim.opt.undofile = true
 vim.opt.signcolumn = "yes"
-vim.g.have_nerd_font = true
 vim.opt.scrolloff = 8
-vim.o.wrap = false
-vim.o.winborder = "rounded"
-vim.o.exrc = true;
+vim.opt.wrap = false
+vim.opt.winborder = "rounded"
+vim.opt.exrc = true;
+
+vim.g.have_nerd_font = true
+
+require("plugins.add")
+require("plugins.ide")
+require("plugins.ui")
+require("plugins.edit")
+
+require("config.langserver")
 
 -- Misc settings
 MiniIcons.mock_nvim_web_devicons()
@@ -97,24 +99,23 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
     pattern = {"c","cpp"},
     callback = function()
-    vim.opt.softtabstop = 4
-	vim.opt.tabstop = 8
-	vim.opt.shiftwidth = 8
-	vim.opt.expandtab = false
-	vim.opt.smarttab = false
+        vim.opt_local.softtabstop = 4
+        vim.opt_local.tabstop = 8
+        vim.opt_local.shiftwidth = 8
+        vim.opt_local.expandtab = false
 
-	vim.opt.smartindent = false
-	vim.opt.cindent = true
-	--[[
-	-- No indent on case statements
-	-- Four space line continuation indent
-	-- Look 500 lines back for comment starts
-	]]
-	vim.opt.cinoptions = "p0,t0,+4,(0,u4,U1,:0,*500"
+        vim.opt_local.smartindent = false
+        vim.opt_local.cindent = true
+        --[[
+        -- No i_localndent on case statements
+        -- Four_local space line continuation indent
+        -- Look_local 500 lines back for comment starts
+        ]]
+        vim.opt_local.cinoptions = "p0,t0,+4,(0,u4,U1,:0,*500"
 
-	vim.opt.formatoptions = "croq"
-	vim.opt.textwidth = 80
-	vim.opt.colorcolumn = "80"
+        vim.opt_local.formatoptions = "croq"
+        vim.opt_local.textwidth = 79
+        vim.opt_local.colorcolumn = "80"
     end,
 })
 
