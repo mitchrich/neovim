@@ -1,4 +1,4 @@
-require('slimline').setup({})
+require('mini.statusline').setup()
 
 require('telescope').setup({
     extensions = {

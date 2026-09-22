@@ -1,4 +1,5 @@
-require('neogen').setup()
+require('mini.diff').setup()
+require('mini.git').setup()
 
 require('blink.cmp').setup({
     keymap = { preset = 'default' },

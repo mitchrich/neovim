@@ -1,14 +1,17 @@
 vim.pack.add({
-    'https://github.com/neovim/nvim-lspconfig',
-    'https://github.com/sschleemilch/slimline.nvim',
     'https://github.com/nvim-mini/mini.nvim',
+
+    -- LSP
+    'https://github.com/neovim/nvim-lspconfig',
+    { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.*") },
+
+    -- Theme
     'https://github.com/rebelot/kanagawa.nvim',
+
+    -- Telescope
     'https://github.com/nvim-telescope/telescope.nvim',
     'https://github.com/nvim-telescope/telescope-fzf-native.nvim',
     'https://github.com/nvim-lua/plenary.nvim', -- Telescope dependency
-    "https://github.com/lewis6991/gitsigns.nvim",
-    "https://github.com/danymat/neogen",
-    { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.*") },
 })
 
 vim.cmd('packadd nohlsearch')
