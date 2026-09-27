@@ -7,6 +7,12 @@ vim.lsp.config('clangd', {
     }, -- Use CLANGD_FLAGS in per directory environment to set query driver
 })
 
+vim.lsp.config('tinymist', {
+    settings = {
+        exportPdf = "onSave",
+    }
+})
+
 vim.lsp.config('texlab', {
     settings = {
         texlab = {
@@ -102,4 +108,4 @@ vim.lsp.config('nixd', {
     },
 })
 
-vim.lsp.enable({ 'basedpyright', 'rust_analyzer', 'texlab', 'clangd', 'ruff', 'lua_ls', 'nixd' })
+vim.lsp.enable({ 'tinymist', 'basedpyright', 'rust_analyzer', 'texlab', 'clangd', 'ruff', 'lua_ls', 'nixd' })
