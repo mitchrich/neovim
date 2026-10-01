@@ -7,6 +7,15 @@ vim.lsp.config('clangd', {
     }, -- Use CLANGD_FLAGS in per directory environment to set query driver
 })
 
+vim.lsp.config('basedpyright', {
+    settings = {
+  basedpyright = {
+      disableOrganizeImports = false,
+      analysis = { typeCheckingMode = "off" },
+  }
+  }
+})
+
 vim.lsp.config('tinymist', {
     settings = {
         exportPdf = "onSave",
