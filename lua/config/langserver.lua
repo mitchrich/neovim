@@ -107,14 +107,4 @@ vim.lsp.config('rust_analyzer', {
     }
 })
 
-vim.lsp.config('nixd', {
-    settings = {
-        nixd = {
-            formatting = {
-                command = { "nixfmt" },
-            },
-        },
-    },
-})
-
-vim.lsp.enable({ 'tinymist', 'basedpyright', 'rust_analyzer', 'texlab', 'clangd', 'ruff', 'lua_ls', 'nixd' })
+vim.lsp.enable({ 'tinymist', 'basedpyright', 'rust_analyzer', 'texlab', 'clangd', 'ruff', 'lua_ls' })
