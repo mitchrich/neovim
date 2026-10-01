@@ -78,9 +78,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
                 'n',
                 '<localleader>p', 
                 ':TypstPreview<CR>',
-                { desc = 'Sync cursor', buf=0}
+                { desc = 'Start preview', buf=0}
             )
-            vim.keymap.set('n', '<localleader>s', ':TypstPreviewSyncCursor<CR>', { desc = 'Start Typst Preview', buf=0})
+            vim.keymap.set('n', '<localleader>s', ':TypstPreviewSyncCursor<CR>', { desc = 'Sync cursor', buf=0})
         end
     end,
 })
