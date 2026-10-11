@@ -57,6 +57,7 @@ vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find f
 vim.keymap.set('n', '<leader>fr', builtin.live_grep, { desc = 'Telescope ripgrep' })
 vim.keymap.set('n', '<leader>fm', builtin.man_pages, { desc = 'Telescope manpages' })
 vim.keymap.set('n', '<leader>fs', builtin.lsp_dynamic_workspace_symbols, { desc = 'Telescope symbols' })
+vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function()
