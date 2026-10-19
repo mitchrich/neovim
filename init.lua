@@ -41,23 +41,19 @@ vim.keymap.set('n', '<leader>y', "\"+y", { desc = 'Copy to system board' })
 vim.keymap.set('v', '<leader>y', "\"+y", { desc = 'Copy to system board' })
 vim.keymap.set('n', '<leader>k', ':nohlsearch<CR>', { desc = 'Clear search' })
 vim.keymap.set('n', '<leader>e', MiniFiles.open, { desc = 'File Explorer' })
+vim.keymap.set('n', '<leader>c', ":bd<CR>", { desc = 'Close Buffer' } )
 
 -- LSP Keybinds
 vim.keymap.set('n', '<leader>m', vim.lsp.buf.format, { desc = 'Format buffer' })
-vim.keymap.set('n', '<leader>d', ':Neogen<CR>', { desc = 'Generate Docs' })
 vim.keymap.set('n', 'gp', vim.diagnostic.setloclist, { desc = 'Show LSP Problems' })
 vim.keymap.set('n', '<leader>i', function()
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
     vim.notify(vim.lsp.inlay_hint.is_enabled() and "Inlay Hints Enabled" or "Inlay Hints Disabled")
 end, { desc = 'Toggle Inlay Hints' })
 
--- Telescope Config
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>fr', builtin.live_grep, { desc = 'Telescope ripgrep' })
-vim.keymap.set('n', '<leader>fm', builtin.man_pages, { desc = 'Telescope manpages' })
-vim.keymap.set('n', '<leader>fs', builtin.lsp_dynamic_workspace_symbols, { desc = 'Telescope symbols' })
-vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
+vim.keymap.set('n', '<leader>ff', MiniPick.builtin.files, { desc = 'Pick files' })
+vim.keymap.set('n', '<leader>fr', MiniPick.builtin.grep_live, { desc = 'Pick grep' })
+vim.keymap.set('n', '<leader>fb', MiniPick.builtin.buffers, { desc = 'Pick buffers' })
 
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function()

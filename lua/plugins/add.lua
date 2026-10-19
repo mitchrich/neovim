@@ -8,11 +8,6 @@ vim.pack.add({
 
     -- Theme
     'https://github.com/rebelot/kanagawa.nvim',
-
-    -- Telescope
-    'https://github.com/nvim-telescope/telescope.nvim',
-    'https://github.com/nvim-telescope/telescope-fzf-native.nvim',
-    'https://github.com/nvim-lua/plenary.nvim', -- Telescope dependency
 })
 
 vim.cmd('packadd nohlsearch')
