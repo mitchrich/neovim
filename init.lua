@@ -1,10 +1,10 @@
+-- Hooks for Building Plugins
+require("hooks")
+
+-- Editor settings
 vim.g.mapleader = ' '
 vim.g.maplocalleader = '\\'
 
--- Create Hooks for Building Plugins
-require("plugins.hooks")
-
--- Editor settings
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
@@ -15,6 +15,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 vim.opt.undofile = true
+vim.opt.splitright = true
 vim.opt.signcolumn = "yes"
 vim.opt.scrolloff = 8
 vim.opt.wrap = false
@@ -23,40 +24,30 @@ vim.opt.exrc = true;
 
 vim.g.have_nerd_font = true
 
-require("plugins.add")
-require("plugins.ide")
-require("plugins.ui")
-require("plugins.edit")
-
-require("config.langserver")
-
--- Misc settings
-MiniIcons.mock_nvim_web_devicons()
-vim.cmd("colorscheme kanagawa-dragon")
+require("add")
+require("plug-setup")
+require("mini")
+require("lsp")
+require("theme")
 
 -- General Keybinds
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
-vim.keymap.set('n', '<leader>y', "\"+y", { desc = 'Copy to system board' })
-vim.keymap.set('v', '<leader>y', "\"+y", { desc = 'Copy to system board' })
-vim.keymap.set('n', '<leader>k', ':nohlsearch<CR>', { desc = 'Clear search' })
-vim.keymap.set('n', '<leader>e', MiniFiles.open, { desc = 'File Explorer' })
-vim.keymap.set('n', '<leader>c', ":bd<CR>", { desc = 'Close Buffer' } )
+vim.keymap.set('n', 'gy', "\"+y", { desc = 'Copy to system board' })
+vim.keymap.set('v', 'gy', "\"+y", { desc = 'Copy to system board' })
+vim.keymap.set('n', '<leader>k', '<CMD>nohlsearch<CR>', { desc = 'Clear search' })
+vim.keymap.set('n', '<leader>c', "<CMD>bd<CR>", { desc = 'Close Buffer' } )
 
 -- LSP Keybinds
-vim.keymap.set('n', '<leader>m', vim.lsp.buf.format, { desc = 'Format buffer' })
 vim.keymap.set('n', 'gp', vim.diagnostic.setloclist, { desc = 'Show LSP Problems' })
 vim.keymap.set('n', '<leader>i', function()
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
     vim.notify(vim.lsp.inlay_hint.is_enabled() and "Inlay Hints Enabled" or "Inlay Hints Disabled")
 end, { desc = 'Toggle Inlay Hints' })
 
-vim.keymap.set('n', '<leader>ff', MiniPick.builtin.files, { desc = 'Pick files' })
-vim.keymap.set('n', '<leader>fr', MiniPick.builtin.grep_live, { desc = 'Pick grep' })
-vim.keymap.set('n', '<leader>fb', MiniPick.builtin.buffers, { desc = 'Pick buffers' })
-
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function()
+        vim.keymap.set('n', 'grf', vim.lsp.buf.format, { desc = 'Format buffer' })
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Go to definition' })
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = 'Go to declaration' })
     end,
@@ -67,63 +58,18 @@ vim.api.nvim_create_autocmd('LspAttach', {
         local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
         if client.name == "clangd" then
             vim.keymap.set(
-                'n', '<localleader>h', ':LspClangdSwitchSourceHeader<CR>', { desc = 'Switch Header<->Source', buf=0})
+                'n', '<localleader>h', '<CMD>LspClangdSwitchSourceHeader<CR>', { desc = 'Switch Header<->Source', buf=0})
         elseif client.name == "texlab" then
-            vim.keymap.set('n', '<localleader>v', ':LspTexlabForward<CR>', { desc = 'Forward Texsync', buf=0})
+            vim.keymap.set('n', '<localleader>v', '<CMD>LspTexlabForward<CR>', { desc = 'Forward Texsync', buf=0})
         elseif client.name == "tinymist" then
             vim.keymap.set(
                 'n',
                 '<localleader>p', 
-                ':TypstPreview<CR>',
+                '<CMD>TypstPreview<CR>',
                 { desc = 'Start preview', buf=0}
             )
             vim.keymap.set('n', '<localleader>s', ':TypstPreviewSyncCursor<CR>', { desc = 'Sync cursor', buf=0})
         end
-    end,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = {"markdown", "tex", "typst"},
-    callback = function()
-        vim.opt_local.wrap = true
-        vim.opt_local.linebreak = true
-        vim.opt_local.textwidth = 0
-
-        -- Up and down screen lines
-        vim.keymap.set('n', 'j', 'gj', { buffer = true, silent = true })
-        vim.keymap.set('n', 'k', 'gk', { buffer = true, silent = true })
-    end,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "nix",
-    callback = function()
-        vim.opt_local.shiftwidth = 2
-        vim.opt_local.tabstop = 2
-        vim.opt_local.softtabstop = 2
-    end,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = {"c","cpp"},
-    callback = function()
-        vim.opt_local.softtabstop = 4
-        vim.opt_local.tabstop = 8
-        vim.opt_local.shiftwidth = 8
-        vim.opt_local.expandtab = false
-
-        vim.opt_local.smartindent = false
-        vim.opt_local.cindent = true
-        --[[
-        -- No i_localndent on case statements
-        -- Four_local space line continuation indent
-        -- Look_local 500 lines back for comment starts
-        ]]
-        vim.opt_local.cinoptions = "p0,t0,+4,(0,u4,U1,:0,*500"
-
-        vim.opt_local.formatoptions = "croq"
-        vim.opt_local.textwidth = 79
-        vim.opt_local.colorcolumn = "80"
     end,
 })
 

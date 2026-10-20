@@ -1,17 +1,19 @@
 require('mini.statusline').setup()
 require('mini.tabline').setup()
-require('mini.pick').setup()
+
 require('mini.notify').setup({
     lsp_progress = { enable = false }
 })
-require('mini.icons').setup()
-require('mini.files').setup()
 
-require('mini.clue').setup()
+require('mini.icons').setup()
+MiniIcons.mock_nvim_web_devicons()
+
+require('mini.pick').setup()
+
 local miniclue = require('mini.clue')
 miniclue.setup({
     window = {
-        delay = 400,
+        delay = 300,
         config = { width = 'auto' },
     },
     triggers = {
@@ -44,7 +46,6 @@ miniclue.setup({
     },
 
     clues = {
-        -- Enhance this by adding descriptions for <Leader> mapping groups
         miniclue.gen_clues.square_brackets(),
         miniclue.gen_clues.builtin_completion(),
         miniclue.gen_clues.g(),
@@ -55,12 +56,36 @@ miniclue.setup({
     },
 })
 
-require('kanagawa').setup({
-    overrides = function()
-        return {
-            NormalFloat = { bg = "none" },
-            FloatBorder = { bg = "none" },
-            FloatTitle = { bg = "none" },
-        }
+require('mini.jump2d').setup()
+require('mini.surround').setup()
+require('mini.move').setup {
+  mappings = {
+    -- Visual mode
+    left = '<M-S-h>',
+    right = '<M-S-l>',
+    down = '<M-S-j>',
+    up = '<M-S-k>',
+
+    -- Normal mode
+    line_left = '<M-S-h>',
+    line_right = '<M-S-l>',
+    line_down = '<M-S-j>',
+    line_up = '<M-S-k>',
+  },
+}
+require('mini.diff').setup()
+require('mini.git').setup()
+require('mini.extra').setup()
+
+-- Keymaps
+vim.keymap.set('n', '<leader>j', MiniJump2d.start, { desc = 'File Explorer' })
+
+vim.keymap.set('n', '<leader>ff', MiniPick.builtin.files, { desc = 'Pick files' })
+vim.keymap.set('n', '<leader>fr', MiniPick.builtin.grep_live, { desc = 'Pick grep' })
+vim.keymap.set('n', '<leader>fb', MiniPick.builtin.buffers, { desc = 'Pick buffers' })
+
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function()
+        vim.keymap.set('n', '<leader>fs', function() MiniExtra.pickers.lsp({ scope='document_symbol' }) end, { desc = 'Pick symbols' })
     end,
 })

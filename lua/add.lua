@@ -1,5 +1,6 @@
 vim.pack.add({
     'https://github.com/nvim-mini/mini.nvim',
+    'https://github.com/stevearc/oil.nvim',
 
     -- LSP
     'https://github.com/neovim/nvim-lspconfig',

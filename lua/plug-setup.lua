@@ -1,7 +1,7 @@
-require('mini.diff').setup()
-require('mini.git').setup()
-
 require('typst-preview').setup({ follow_cursor = false })
+
+require('oil').setup()
+vim.keymap.set('n', '<leader>e', '<CMD>Oil<CR>', { desc = "File Explorer" })
 
 require('blink.cmp').setup({
     keymap = { preset = 'default' },
