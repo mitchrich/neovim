@@ -1,6 +1,3 @@
--- Hooks for Building Plugins
-require("hooks")
-
 -- Editor settings
 vim.g.mapleader = ' '
 vim.g.maplocalleader = '\\'
@@ -33,23 +30,27 @@ require("theme")
 -- General Keybinds
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
-vim.keymap.set('n', 'gy', "\"+y", { desc = 'Copy to system board' })
-vim.keymap.set('v', 'gy', "\"+y", { desc = 'Copy to system board' })
+vim.keymap.set({'n', 'v'}, 'gy', "\"+y", { desc = 'Copy to system board' })
 vim.keymap.set('n', '<leader>k', '<CMD>nohlsearch<CR>', { desc = 'Clear search' })
 vim.keymap.set('n', '<leader>c', "<CMD>bd<CR>", { desc = 'Close Buffer' } )
 
--- LSP Keybinds
-vim.keymap.set('n', 'gp', vim.diagnostic.setloclist, { desc = 'Show LSP Problems' })
-vim.keymap.set('n', '<leader>i', function()
-    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-    vim.notify(vim.lsp.inlay_hint.is_enabled() and "Inlay Hints Enabled" or "Inlay Hints Disabled")
-end, { desc = 'Toggle Inlay Hints' })
+-- Split movement
+vim.keymap.set('n', '<C-h>', '<CMD>wincmd h<CR>')
+vim.keymap.set('n', '<C-j>', '<CMD>wincmd j<CR>')
+vim.keymap.set('n', '<C-k>', '<CMD>wincmd k<CR>')
+vim.keymap.set('n', '<C-l>', '<CMD>wincmd l<CR>')
 
+-- LSP Keybinds
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function()
+        vim.keymap.set('n', 'gp', vim.diagnostic.setloclist, { desc = 'Show LSP Problems' })
         vim.keymap.set('n', 'grf', vim.lsp.buf.format, { desc = 'Format buffer' })
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Go to definition' })
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = 'Go to declaration' })
+        vim.keymap.set('n', '<leader>i', function()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+            vim.notify(vim.lsp.inlay_hint.is_enabled() and "Inlay Hints Enabled" or "Inlay Hints Disabled")
+        end, { desc = 'Toggle Inlay Hints' })
     end,
 })
 
@@ -68,7 +69,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
                 '<CMD>TypstPreview<CR>',
                 { desc = 'Start preview', buf=0}
             )
-            vim.keymap.set('n', '<localleader>s', ':TypstPreviewSyncCursor<CR>', { desc = 'Sync cursor', buf=0})
+            vim.keymap.set('n', '<localleader>s', '<CMD>TypstPreviewSyncCursor<CR>', { desc = 'Sync cursor', buf=0})
         end
     end,
 })
