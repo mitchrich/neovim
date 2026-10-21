@@ -10,7 +10,7 @@
     -- Four_local space line continuation indent
     -- Look_local 500 lines back for comment starts
     ]]
-    vim.opt_local.cinoptions = "p0,t0,+4,(0,u4,U1,:0,*500"
+    vim.opt_local.cinoptions = "p0,t0,+4,(4,u4,U1,:0,*500"
 
     vim.opt_local.formatoptions = "croq"
     vim.opt_local.textwidth = 79

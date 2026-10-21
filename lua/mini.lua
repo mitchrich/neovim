@@ -7,6 +7,8 @@ require('mini.notify').setup({
 
 require('mini.icons').setup()
 require('mini.pick').setup()
+require('mini.bufremove').setup()
+
 
 local miniclue = require('mini.clue')
 miniclue.setup({
@@ -80,6 +82,8 @@ vim.keymap.set('n', '<leader>j', MiniJump2d.start, { desc = 'File Explorer' })
 vim.keymap.set('n', '<leader>ff', MiniPick.builtin.files, { desc = 'Pick files' })
 vim.keymap.set('n', '<leader>fr', MiniPick.builtin.grep_live, { desc = 'Pick grep' })
 vim.keymap.set('n', '<leader>fb', MiniPick.builtin.buffers, { desc = 'Pick buffers' })
+
+vim.keymap.set('n', '<leader>c', MiniBufremove.delete, { desc = 'Close Buffer' } )
 
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function()

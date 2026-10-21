@@ -32,7 +32,6 @@ vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set({'n', 'v'}, 'gy', "\"+y", { desc = 'Copy to system board' })
 vim.keymap.set('n', '<leader>k', '<CMD>nohlsearch<CR>', { desc = 'Clear search' })
-vim.keymap.set('n', '<leader>c', "<CMD>bd<CR>", { desc = 'Close Buffer' } )
 
 -- Split movement
 vim.keymap.set('n', '<C-h>', '<CMD>wincmd h<CR>')
